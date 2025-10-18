@@ -7,7 +7,7 @@ $(document).ready(function() {
 
   $(window).load(function() {
     $messages.mCustomScrollbar();
-    insertResponseMessage('Hi there, I\'m your personal Concierge. How can I help?');
+    insertResponseMessage("Hi there, I'm your personal Concierge. How can I help?");
   });
 
   function updateScrollbar() {
@@ -18,21 +18,39 @@ $(document).ready(function() {
   }
 
   function setDate() {
-    d = new Date()
+    d = new Date();
     if (m != d.getMinutes()) {
       m = d.getMinutes();
       $('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
     }
   }
 
+  // ✅ Fixed API call — uses GET instead of POST
   function callChatbotApi(message) {
-    // Call your API Gateway endpoint directly using fetch
-    const apiUrl = "https://t279jhnzka.execute-api.us-east-2.amazonaws.com/default/LF0?message=" + encodeURIComponent(message);
-    
+    const apiUrl = "https://agaobmcj3f.execute-api.us-east-1.amazonaws.com/default/LF0?message=" + encodeURIComponent(message);
+
     return fetch(apiUrl, {
       method: "GET"
-    }).then(response => response.json());
-  }  
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Lambda response:", data);
+      if (data.messages && data.messages[0].unstructured && data.messages[0].unstructured.text) {
+        return data.messages[0].unstructured.text;
+      } else {
+        throw new Error("Invalid response format");
+      }
+    })
+    .catch(error => {
+      console.error("An error occurred:", error);
+      return "Oops, something went wrong. Please try again.";
+    });
+  }
 
   function insertMessage() {
     msg = $('.message-input').val();
@@ -46,37 +64,7 @@ $(document).ready(function() {
 
     callChatbotApi(msg)
       .then((response) => {
-        console.log(response);
-        var data = response;
-      
-        if (data.messages && data.messages.length > 0) {
-          console.log('received ' + data.messages.length + ' messages');
-      
-          var messages = data.messages;
-      
-          for (var message of messages) {
-            if (message.type === 'unstructured') {
-              insertResponseMessage(message.unstructured.text);
-            } else if (message.type === 'structured' && message.structured.type === 'product') {
-              var html = '';
-
-              insertResponseMessage(message.structured.text);
-
-              setTimeout(function() {
-                html = '<img src="' + message.structured.payload.imageUrl + '" witdth="200" height="240" class="thumbnail" /><b>' +
-                  message.structured.payload.name + '<br>$' +
-                  message.structured.payload.price +
-                  '</b><br><a href="#" onclick="' + message.structured.payload.clickAction + '()">' +
-                  message.structured.payload.buttonLabel + '</a>';
-                insertResponseMessage(html);
-              }, 1100);
-            } else {
-              console.log('not implemented');
-            }
-          }
-        } else {
-          insertResponseMessage('Oops, something went wrong. Please try again.');
-        }
+        insertResponseMessage(response);
       })
       .catch((error) => {
         console.log('an error occurred', error);
@@ -93,7 +81,7 @@ $(document).ready(function() {
       insertMessage();
       return false;
     }
-  })
+  });
 
   function insertResponseMessage(content) {
     $('<div class="message loading new"><figure class="avatar"><img src="https://media.tenor.com/images/4c347ea7198af12fd0a66790515f958f/tenor.gif" /></figure><span></span></div>').appendTo($('.mCSB_container'));
@@ -107,5 +95,4 @@ $(document).ready(function() {
       i++;
     }, 500);
   }
-
 });
