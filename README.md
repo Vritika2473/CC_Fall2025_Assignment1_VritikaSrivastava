@@ -12,4 +12,9 @@ class at New York University.
    Gateway.
 3. Open `chat.html` in any browser.
 4. Start sending messages to test the chatbot interaction.
+ 
+ ## 🎬 Demo Video  
+![Watch the demo
+(https://img.youtube.com/vi/52nhEv8bnuE/0.jpg)](https://youtu.be/52nhEv8bnuE)
+
 
