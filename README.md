@@ -14,8 +14,10 @@ class at New York University.
 4. Start sending messages to test the chatbot interaction.
  
  ## 🎬 Demo Video  
-![Watch the demo
+Watch the demo
+
 (https://youtu.be/52nhEv8bnuE)
+
 
 
 
