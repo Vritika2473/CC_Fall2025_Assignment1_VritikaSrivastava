@@ -1,0 +1,6 @@
+"restaurantID","address","cuisine","name","phone","rating"
+"r1","""123 Tokyo St, Manhattan""","japanese","Sushi Zen","555-1111","4.5"
+"r5","""654 Freedom Blvd, Manhattan""","american","Burger Barn","555-5555","4.0"
+"r2","""456 Roma Ave, Manhattan""","italian","Pasta Palace","555-2222","4.3"
+"r3","""789 Curry Ln, Manhattan""","indian","Spice Route","555-3333","4.6"
+"r4","""321 Fiesta Rd, Manhattan""","mexican","Taco Fiesta","555-4444","4.2"
