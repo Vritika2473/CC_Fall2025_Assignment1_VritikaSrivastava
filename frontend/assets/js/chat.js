@@ -25,7 +25,6 @@ $(document).ready(function() {
     }
   }
 
-  // ✅ Fixed API call — uses GET instead of POST
   function callChatbotApi(message) {
     const apiUrl = "https://agaobmcj3f.execute-api.us-east-1.amazonaws.com/default/LF0?message=" + encodeURIComponent(message);
 
