@@ -15,6 +15,7 @@ class at New York University.
  
  ## 🎬 Demo Video  
 ![Watch the demo
-(https://img.youtube.com/vi/52nhEv8bnuE/0.jpg)](https://youtu.be/52nhEv8bnuE)
+(https://youtu.be/52nhEv8bnuE)
+
 
 
